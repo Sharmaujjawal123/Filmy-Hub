@@ -4,14 +4,16 @@ import Header from './component/Header';
 import Card from './component/Card';
 import { Route,Routes } from 'react-router-dom';
 import AddMovie from './component/AddMovie';
+import Detail from './component/Detail';
 
 function App() {
   return (
-    <div>
+    <div className=''>
       <Header/>
       <Routes>
         <Route path="/" element={<Card/>}/>
         <Route path="/add" element={<AddMovie/>}/>
+        <Route path="/detail/:id" element={<Detail/>}/>
       </Routes>
      
     </div>
