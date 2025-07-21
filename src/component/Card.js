@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from 'react'
 import ReactStarts from 'react-stars';
 import { getDocs } from 'firebase/firestore';
 import { moviesCollection } from '../firebase/firebase';
+import { Link } from 'react-router-dom';
 const Card = () => {
     const [data,setdata]=useState([]);
     const [loading,setloading]=useState(false);
@@ -10,7 +11,7 @@ const Card = () => {
 setloading(true);
 const response = await getDocs(moviesCollection);
 response.forEach((doc) => {
-    setdata((prev)=> [...prev, doc.data()]);
+   setdata((prev) => [...prev, { id: doc.id, ...doc.data() }]);
 });
 setloading(false);
 
@@ -24,6 +25,7 @@ setloading(false);
         data.map((item,index)=>{
 
             return (
+              <Link to={`/detail/${item.id}`}>
                 <div key={index} className='bg-slate-900 text-white p-3 rounded-lg shadow-lg m-2 hover:translate-y-2 cursor-pointer mt-6 transition-all duration-500 '>
                     <img className="h-62 md:h-72 w-60" src={item.image}></img>
                     <h1>{item.name}</h1>
@@ -37,7 +39,7 @@ setloading(false);
                     </h1>
                     <h1>Release Date: {item.year}</h1>
                     <p className='text-sm'>{item.description}</p>
-                </div>
+                </div></Link>
             )
         })}
         </div>
